@@ -51,13 +51,18 @@ public class Tabuleiro {
 
     public void print(){
         for(int i=0; i<size; i++){
-            String linha = "|";
+            String linha = "";
 
             for(int j=0; j<size; j++){
-                linha += tabuleiro[i][j] + "|";
+                Character jogada = tabuleiro[i][j];
+                linha += (jogada == 'o' ? ("\033[33m" + 'o' + "\033[39m") : (jogada == 'x' ? ("\033[31m" + 'x' + "\033[39m") : jogada) );
+                if (j < size - 1)
+                    linha += " | ";
             }
 
             System.out.println(linha);
+            if (i < size - 1)
+                System.out.println("- + - + -");
         }
     }
 
