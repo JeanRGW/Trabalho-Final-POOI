@@ -1,6 +1,7 @@
 package jogodavelha;
 
 import java.util.Scanner;
+import jogodavelha.jogador.*;
 
 public class Jogo {
     Tabuleiro tabuleiro;
@@ -30,6 +31,8 @@ public class Jogo {
         while(!tabuleiro.encerrado()){
             for(Jogador jogador: jogadores){
                 tabuleiro.print();
+                if(tabuleiro.encerrado())
+                    break;
                 try {
                     System.out.println("Vez do jogador: " + jogador.getNome());
                     tabuleiro.add(jogador.Jogar(tabuleiro));

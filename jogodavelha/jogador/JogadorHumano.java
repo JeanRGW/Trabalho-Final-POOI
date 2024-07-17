@@ -1,6 +1,9 @@
-package jogodavelha;
+package jogodavelha.jogador;
 
 import java.util.Scanner;
+
+import jogodavelha.Jogada;
+import jogodavelha.Tabuleiro;
 
 public class JogadorHumano implements Jogador {
     private String nome;
