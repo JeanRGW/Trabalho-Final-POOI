@@ -1,4 +1,4 @@
-package JogoDaVelha;
+package jogodavelha;
 
 import java.util.Scanner;
 

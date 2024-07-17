@@ -1,4 +1,4 @@
-package JogoDaVelha;
+package jogodavelha;
 
 import java.util.Scanner;
 
@@ -31,6 +31,7 @@ public class Jogo {
             for(Jogador jogador: jogadores){
                 tabuleiro.print();
                 try {
+                    System.out.println("Vez do jogador: " + jogador.getNome());
                     tabuleiro.add(jogador.Jogar(tabuleiro));
                 } catch (Exception x) {
                     System.out.println(x);

@@ -1,4 +1,4 @@
-package JogoDaVelha;
+package jogodavelha;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,6 @@ public class Tabuleiro {
 
     public void add(Jogada x) throws Exception {
         Character player = x.getPlayer()?'o':'x';
-        Character adversario = x.getPlayer()?'x':'o';
 
         Pair<Number, Number> coordenada = new Pair<>(x.getX(), x.getY());
 

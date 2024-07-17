@@ -1,4 +1,4 @@
-package JogoDaVelha;
+package jogodavelha;
 
 public interface Jogador {
     public Jogada Jogar(Tabuleiro tabuleiro);

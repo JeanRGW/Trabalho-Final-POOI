@@ -1,4 +1,4 @@
-package JogoDaVelha;
+package jogodavelha;
 
 public class Jogada {
     private Boolean player;

@@ -1,4 +1,4 @@
-package JogoDaVelha;
+package jogodavelha;
 
 import java.util.Random;
 
@@ -21,6 +21,8 @@ public class JogadorIA implements Jogador {
     }
 
     public Jogada Jogar(Tabuleiro tabuleiro){
+        System.out.println(nome + " está fazendo a jogada");
+
         // JogoDaVelha.Jogada Racional / Irracional
         if(generator.nextInt(4) == 0){
             //JogoDaVelha.Jogada Irracional;
