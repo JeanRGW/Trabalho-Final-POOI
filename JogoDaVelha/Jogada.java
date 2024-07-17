@@ -1,3 +1,4 @@
+package JogoDaVelha;
 
 public class Jogada {
     private Boolean player;
@@ -8,6 +9,10 @@ public class Jogada {
         this.player = player;
         this.x = x;
         this.y = y;
+    }
+
+    public Jogada inverse(){
+        return new Jogada(!player, x, y);
     }
 
     public Boolean getPlayer(){

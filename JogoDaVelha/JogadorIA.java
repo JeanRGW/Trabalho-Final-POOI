@@ -1,3 +1,5 @@
+package JogoDaVelha;
+
 import java.util.Random;
 
 public class JogadorIA implements Jogador {
@@ -19,16 +21,25 @@ public class JogadorIA implements Jogador {
     }
 
     public Jogada Jogar(Tabuleiro tabuleiro){
-        // Jogada Racional / Irracional
+        // JogoDaVelha.Jogada Racional / Irracional
         if(generator.nextInt(4) == 0){
-            //Jogada Irracional;
+            //JogoDaVelha.Jogada Irracional;
             return new Jogada(player, 0, 0);
         } else {
-            if(tabuleiro.jogadaVitoriosa(player) != null){
-                return tabuleiro.jogadaVitoriosa(player);
+            Jogada jogada;
+
+            // Tenta ganhar
+            if((jogada = tabuleiro.jogadaVitoriosa(player)) != null){
+                return jogada;
             }
 
-            return new Jogada(player, 0, 0);
+            // Impede vitória
+            if((jogada = tabuleiro.jogadaVitoriosa(!player)) != null){
+                return jogada.inverse();
+            }
+
+
+            return tabuleiro.jogadaAleatoria(player);
         }
     }
 

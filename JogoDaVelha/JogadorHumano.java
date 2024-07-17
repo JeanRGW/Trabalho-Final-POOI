@@ -1,3 +1,5 @@
+package JogoDaVelha;
+
 import java.util.Scanner;
 
 public class JogadorHumano implements Jogador {
@@ -12,16 +14,16 @@ public class JogadorHumano implements Jogador {
     public Jogada Jogar(Tabuleiro tabuleiro){
         Scanner scan = new Scanner(System.in);
         
-        System.out.println("Insira a coluna: ");
-        int x = (scan.nextInt() - 1);
         System.out.println("Insira a linha: ");
+        int x = (scan.nextInt() - 1);
+        System.out.println("Insira a coluna: ");
         int y = (scan.nextInt() - 1);
 
         while(x < 0 || y < 0 || x >= tabuleiro.getSize() || y >= tabuleiro.getSize()){
             System.out.println("Coordenada invadida, inserindo novamente.");
-            System.out.println("Insira a coluna: ");
-            x = scan.nextInt();
             System.out.println("Insira a linha: ");
+            x = scan.nextInt();
+            System.out.println("Insira a coluna: ");
             y = scan.nextInt();
         }
 

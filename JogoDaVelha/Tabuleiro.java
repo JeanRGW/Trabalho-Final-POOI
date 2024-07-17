@@ -1,10 +1,24 @@
+package JogoDaVelha;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class Tabuleiro {
     private Character tabuleiro[][];
     private int size;
+    private List<Pair<Number, Number>> posicoesRestantes;
 
     public Tabuleiro(int size){
         this.size = size;
         tabuleiro = new Character[size][size];
+
+        posicoesRestantes = new ArrayList<>();
+        for(int i=0; i < size; i++){
+            for(int j=0; j < size; j++){
+                posicoesRestantes.add(new Pair<>(i, j));
+            }
+        }
 
         for(int i=0; i<size; i++){
             for(int j=0; j<size; j++){
@@ -17,19 +31,14 @@ public class Tabuleiro {
         Character player = x.getPlayer()?'o':'x';
         Character adversario = x.getPlayer()?'x':'o';
 
-        if(tabuleiro[x.getX()][x.getY()] != ' '){
-            throw new Exception();
-        }
+        Pair<Number, Number> coordenada = new Pair<>(x.getX(), x.getY());
 
-        if(tabuleiro[x.getX()][x.getY()] == adversario){
-            throw new Exception();
-        }
-
-        if(tabuleiro[x.getX()][x.getY()] == player){
+        if(posicoesRestantes.indexOf(coordenada) == -1){
             throw new Exception();
         }
 
         tabuleiro[x.getX()][x.getY()] = player;
+        posicoesRestantes.remove(posicoesRestantes.indexOf(coordenada));
     };
 
     public Boolean encerrado(){
@@ -131,5 +140,13 @@ public class Tabuleiro {
         }}
 
         return null;
+    }
+
+    public Jogada jogadaAleatoria(Boolean jogador){
+        Random random = new Random();
+
+        Pair<Number, Number> pos = posicoesRestantes.get(random.nextInt(posicoesRestantes.size()));
+
+        return new Jogada(jogador, pos.x.intValue(), pos.y.intValue());
     }
 }

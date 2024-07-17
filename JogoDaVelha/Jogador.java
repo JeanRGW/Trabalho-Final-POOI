@@ -1,3 +1,4 @@
+package JogoDaVelha;
 
 public interface Jogador {
     public Jogada Jogar(Tabuleiro tabuleiro);
