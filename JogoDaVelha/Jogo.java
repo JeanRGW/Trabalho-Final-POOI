@@ -27,20 +27,21 @@ public class Jogo {
             jogadores[1] = new JogadorIA(true);
         }
         
-
+        
+        tabuleiro.print(); 
+        int turno = 0;
         while(!tabuleiro.encerrado()){
-            for(Jogador jogador: jogadores){
-                tabuleiro.print();
-                if(tabuleiro.encerrado())
-                    break;
-                try {
-                    System.out.println("Vez do jogador: " + jogador.getNome());
-                    tabuleiro.add(jogador.Jogar(tabuleiro));
-                } catch (Exception x) {
-                    System.out.println(x);
-                }
-                
+            Jogador jogador = jogadores[turno % 2];
+            System.out.println("Vez do jogador: " + jogador.getNome());
+
+            try {
+                tabuleiro.add(jogador.Jogar(tabuleiro));
+            } catch (Exception x) {
+                System.out.println(x);
             }
+
+            tabuleiro.print();
+            turno++;
         };
     }
 }

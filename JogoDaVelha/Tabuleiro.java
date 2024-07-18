@@ -64,6 +64,10 @@ public class Tabuleiro {
         return tabuleiro;
     }
 
+    public Character getPos(int x, int y){
+        return tabuleiro[x][y];
+    }
+
     public List<Pair<Number, Number>> getPosicoesRestantes(){
         return posicoesRestantes;
     }
