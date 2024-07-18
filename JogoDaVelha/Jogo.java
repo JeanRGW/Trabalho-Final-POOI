@@ -1,6 +1,6 @@
 package jogodavelha;
 
-import java.util.Scanner;
+import entradadados.Entrada;
 import jogodavelha.jogador.*;
 
 public class Jogo {
@@ -15,14 +15,12 @@ public class Jogo {
     }
 
     public void Iniciar(){
-        Scanner scan = new Scanner(System.in);
-
         System.out.println("Insira o nome para o jogador 1: ");
-        jogadores[0] = new JogadorHumano(scan.nextLine(), false);
+        jogadores[0] = new JogadorHumano(Entrada.nextLine(), false);
 
         if(!usandoIA){
             System.out.println("Insira o nome para o jogador 2: ");
-            jogadores[1] = new JogadorHumano(scan.nextLine(), true);
+            jogadores[1] = new JogadorHumano(Entrada.nextLine(), true);
         } else {
             jogadores[1] = new JogadorIA(true);
         }

@@ -1,6 +1,6 @@
 package jogodavelha.jogador;
 
-import java.util.Scanner;
+import entradadados.Entrada;
 import jogodavelha.Jogada;
 import jogodavelha.Tabuleiro;
 
@@ -14,19 +14,17 @@ public class JogadorHumano implements Jogador {
     }
 
     public Jogada Jogar(Tabuleiro tabuleiro){
-        Scanner scan = new Scanner(System.in);
-        
         System.out.println("Insira a linha: ");
-        int x = (scan.nextInt() - 1);
+        int x = (Entrada.nextInt() - 1);
         System.out.println("Insira a coluna: ");
-        int y = (scan.nextInt() - 1);
+        int y = (Entrada.nextInt() - 1);
 
         while(x < 0 || y < 0 || x >= tabuleiro.getSize() || y >= tabuleiro.getSize() || tabuleiro.getPos(x,y) != ' '){
             System.out.println("Coordenada invadida, inserindo novamente.");
             System.out.println("Insira a linha: ");
-            x = scan.nextInt() - 1;
+            x = Entrada.nextInt() - 1;
             System.out.println("Insira a coluna: ");
-            y = scan.nextInt() - 1;
+            y = Entrada.nextInt() - 1;
         }
 
         return new Jogada(player, x, y);
