@@ -1,7 +1,7 @@
 package entradadados;
 import java.util.Scanner;
 
-public class Entrada {
+public class Console {
     private static Scanner scan;
 
     private static void init(){
@@ -34,5 +34,9 @@ public class Entrada {
         if(scan != null){
             scan.close();
         }
+    }
+
+    public static void cls(){
+        System.out.print("\033\143");
     }
 }

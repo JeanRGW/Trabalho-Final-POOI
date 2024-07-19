@@ -1,4 +1,4 @@
-package jogodavelha.jogador;
+package jogodavelha.jogadores;
 
 import java.util.Random;
 import jogodavelha.Jogada;

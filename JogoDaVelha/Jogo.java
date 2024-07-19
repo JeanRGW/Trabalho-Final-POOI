@@ -1,7 +1,7 @@
 package jogodavelha;
 
-import entradadados.Entrada;
-import jogodavelha.jogador.*;
+import entradadados.Console;
+import jogodavelha.jogadores.*;
 
 public class Jogo {
     Tabuleiro tabuleiro;
@@ -16,16 +16,17 @@ public class Jogo {
 
     public void Iniciar(){
         System.out.println("Insira o nome para o jogador 1: ");
-        jogadores[0] = new JogadorHumano(Entrada.nextLine(), false);
+        jogadores[0] = new JogadorHumano(Console.nextLine(), false);
 
         if(!usandoIA){
             System.out.println("Insira o nome para o jogador 2: ");
-            jogadores[1] = new JogadorHumano(Entrada.nextLine(), true);
+            jogadores[1] = new JogadorHumano(Console.nextLine(), true);
         } else {
             jogadores[1] = new JogadorIA(true);
         }
         
         
+        Console.cls();
         tabuleiro.print(); 
         int turno = 0;
         while(!tabuleiro.encerrado()){
@@ -38,6 +39,7 @@ public class Jogo {
                 System.out.println(x);
             }
 
+            Console.cls();
             tabuleiro.print();
             turno++;
         };

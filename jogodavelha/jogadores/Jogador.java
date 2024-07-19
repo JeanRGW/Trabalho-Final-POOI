@@ -1,4 +1,4 @@
-package jogodavelha.jogador;
+package jogodavelha.jogadores;
 
 import jogodavelha.Jogada;
 import jogodavelha.Tabuleiro;
