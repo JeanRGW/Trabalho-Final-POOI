@@ -20,6 +20,10 @@ public class JogadorHumano implements Jogador {
         this.player = player;
     }
 
+    public boolean isAI(){
+        return false;
+    }
+
     public Jogada Jogar(Tabuleiro tabuleiro){
         System.out.println("Insira a linha: ");
         int x = (Console.nextInt() - 1);
@@ -47,5 +51,17 @@ public class JogadorHumano implements Jogador {
 
     public void addPonto(){
         pts++;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(o.getClass() == getClass()){
+            Jogador obj = (Jogador) o;
+            if(obj.getNome() == getNome()){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

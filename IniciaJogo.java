@@ -1,11 +1,17 @@
 
+import java.util.List;
 import entradadados.Console;
 import jogodavelha.Jogo;
+import jogodavelha.jogadores.Jogador;
 
 public class IniciaJogo {
     public static void main(String[] args) {
+        Jogador player1, player2;
+
         boolean sair = false;
         boolean singlePlayer = false;
+
+        player1 = escolherJogador();
 
         while(!sair){
             Console.cls();
@@ -15,7 +21,7 @@ public class IniciaJogo {
 
             switch(Console.nextInt()){
                 case 1: {
-                    Jogo jogo = new Jogo(singlePlayer);
+                    Jogo jogo = new Jogo();
                     jogo.Iniciar();
                 } break;
                 
@@ -29,6 +35,13 @@ public class IniciaJogo {
 
                 default:
             }
+        }
+    }
+
+    public static Jogador escolherJogador(List<Jogador> jogadores){
+        System.out.println("Escolha o jogador");
+        for(int i=0; i < jogadores.size(); i++){
+            System.out.println((i+1) + "." + jogadores.get(i).getNome());
         }
     }
 }

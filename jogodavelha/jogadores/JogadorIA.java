@@ -22,6 +22,10 @@ public class JogadorIA implements Jogador {
         System.out.println(nome);
     }
 
+    public boolean isAI(){
+        return true;
+    }
+
     public Jogada Jogar(Tabuleiro tabuleiro){
         System.out.println(nome + " está fazendo a jogada");
 
