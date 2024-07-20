@@ -22,7 +22,7 @@ public class Tabuleiro {
     }
 
     public void add(Jogada x) throws Exception {
-        Character player = x.getPlayer()?'o':'x';
+        Character player = x.getPlayer()?'x':'o';
 
         Pair<Number, Number> coordenada = new Pair<>(x.getX(), x.getY());
 

@@ -8,10 +8,8 @@ import jogodavelha.Tabuleiro;
 public class JogadorIA implements Jogador {
     private String nome;
     private Random RNG;
-    private Boolean player;
 
-    public JogadorIA(Boolean player){
-        this.player = player;
+    public JogadorIA(){
         this.RNG = new Random();
 
         String primeiroNome[] = {"Arthur", "John", "Jack", "Michael", "Ada", "Red", "Linus", "Alan"};
@@ -26,13 +24,13 @@ public class JogadorIA implements Jogador {
         return true;
     }
 
-    public Jogada Jogar(Tabuleiro tabuleiro){
-        System.out.println(nome + " está fazendo a jogada");
+    public Jogada Jogar(Tabuleiro tabuleiro, boolean player){
+        System.out.println(nome + " está fazendo a jogada (" + player);
 
         // JogoDaVelha.Jogada Racional / Irracional
         if(RNG.nextInt(4) == 0){
             // Jogada irracional;
-            return jogadaAleatoria(tabuleiro);
+            return jogadaAleatoria(tabuleiro, player);
         } else {
             Jogada jogada;
 
@@ -43,15 +41,15 @@ public class JogadorIA implements Jogador {
 
             // Impede vitória
             if((jogada = jogadaVitoriosa(!player, tabuleiro)) != null){
-                return jogada.inverse();
+                return new Jogada(player, jogada.getX(), jogada.getY());
             }
 
             // Posição aleatória das restantes
-            return jogadaAleatoria(tabuleiro);
+            return jogadaAleatoria(tabuleiro, player);
         }
     }
 
-    private Jogada jogadaAleatoria(Tabuleiro tabuleiro) {
+    private Jogada jogadaAleatoria(Tabuleiro tabuleiro, boolean player) {
         int nPosRestantes = tabuleiro.getPosicoesRestantes().size();
 
         Pair<Number, Number> pos = tabuleiro.getPosicoesRestantes().get(RNG.nextInt(nPosRestantes));
@@ -59,7 +57,7 @@ public class JogadorIA implements Jogador {
     }
 
     public Jogada jogadaVitoriosa(Boolean jogador, Tabuleiro tabuleiro){
-        Character player = jogador ? 'o':'x';
+        Character player = jogador ? 'x':'o';
         int size = tabuleiro.getSize();
 
         // Verificar linhas horizontais;

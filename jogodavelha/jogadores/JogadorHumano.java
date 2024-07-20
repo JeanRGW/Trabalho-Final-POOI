@@ -6,7 +6,6 @@ import jogodavelha.Tabuleiro;
 
 public class JogadorHumano implements Jogador {
     private String nome;
-    private Boolean player;
     private int pts;
 
     public JogadorHumano(String nome, int pts){
@@ -14,17 +13,12 @@ public class JogadorHumano implements Jogador {
         this.pts = pts;
     }
 
-    public JogadorHumano(String nome, int pts, boolean player){
-        this.nome = nome;
-        this.pts = pts;
-        this.player = player;
-    }
-
     public boolean isAI(){
         return false;
     }
 
-    public Jogada Jogar(Tabuleiro tabuleiro){
+    public Jogada Jogar(Tabuleiro tabuleiro, boolean player){
+        System.out.println("Humano (" + player);
         System.out.println("Insira a linha: ");
         int x = (Console.nextInt() - 1);
         System.out.println("Insira a coluna: ");

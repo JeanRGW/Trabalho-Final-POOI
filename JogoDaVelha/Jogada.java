@@ -1,18 +1,14 @@
 package jogodavelha;
 
 public class Jogada {
-    private Boolean player;
     private int x;
     private int y;
+    private boolean player;
 
     public Jogada(Boolean player, int x, int y){
-        this.player = player;
         this.x = x;
         this.y = y;
-    }
-
-    public Jogada inverse(){
-        return new Jogada(!player, x, y);
+        this.player = player;
     }
 
     public Boolean getPlayer(){

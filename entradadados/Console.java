@@ -19,15 +19,15 @@ public class Console {
     public static int nextInt(){
         init();
 
-        try {
-            return scan.nextInt();
-        } catch (Exception e) {
-            System.err.println("Entrada inválida, insira novamente:");
-            scan.nextLine();
-            return scan.nextInt();
-        } finally {
-            scan.nextLine();
+        while(!scan.hasNextInt()){
+            System.out.println("Entrada inválida, insira novamente");
+            scan.next();
         }
+
+        int x = scan.nextInt();
+        scan.nextLine();
+
+        return x;
     }
 
     public static void close(){

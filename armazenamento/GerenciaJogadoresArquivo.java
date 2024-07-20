@@ -7,13 +7,13 @@
     import java.util.List;
     import jogodavelha.jogadores.JogadorHumano;
 
-    public class GerenciaJogadoresArquivo implements GerenciaJogadores {
+    public class GerenciaJogadoresArquivo {
         public static void write(List<JogadorHumano> jogadores){
             try {
                 FileWriter fw = new FileWriter("GameData");
 
                 for(JogadorHumano x: jogadores){
-                    
+                    fw.write("{" + x.getNome() + "," + x.getPontos() + "}");
                 }
 
                 fw.close();
@@ -47,6 +47,13 @@
 
                     list.add(new JogadorHumano(nome, pontuacao));
                 }
+
+                fr.close();
+
+                return list;
+            } catch (IOException e) {
+                System.err.println("IO Exception: " + e);
+                return new ArrayList<JogadorHumano>();
             }
         }
         
