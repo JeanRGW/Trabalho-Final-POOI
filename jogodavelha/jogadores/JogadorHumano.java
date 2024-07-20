@@ -58,4 +58,9 @@ public class JogadorHumano implements Jogador {
 
         return false;
     }
+
+    @Override
+    public String toString(){
+        return ("{" + getNome() + "," + getPontos() + "}");
+    }
 }

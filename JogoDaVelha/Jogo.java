@@ -7,6 +7,14 @@ public class Jogo {
     Tabuleiro tabuleiro;
     Jogador jogadores[];
 
+    public Jogo(Jogador jogador1){
+        tabuleiro = new Tabuleiro(3);
+        jogadores = new Jogador[2];
+        
+        jogadores[0] = jogador1;
+        jogadores[1] = new JogadorIA();
+    }
+
     public Jogo(Jogador jogador1, Jogador jogador2){
         tabuleiro = new Tabuleiro(3);
         jogadores = new Jogador[2];

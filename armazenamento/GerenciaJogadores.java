@@ -1,12 +1,12 @@
 package armazenamento;
 
 import java.util.List;
-import jogodavelha.jogadores.Jogador;
+import jogodavelha.jogadores.JogadorHumano;
 
 public interface GerenciaJogadores {
-    public void add(String nome, int pont);
+    public void add(JogadorHumano jogador);
 
     public void remove(String nome);
 
-    public List<Jogador> getJogadores();
+    public List<JogadorHumano> getJogadores();
 }
