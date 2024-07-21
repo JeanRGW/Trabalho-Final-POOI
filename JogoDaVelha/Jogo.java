@@ -34,8 +34,9 @@ public class Jogo {
 
             try {
                 tabuleiro.add(jogador.Jogar(tabuleiro, turno%2==0));
-            } catch (Exception x) {
-                System.out.println(x);
+            } catch (InvalidPositionException e) {
+                System.out.println("InvalidPositionException: " + e.getMessage());
+                turno--;
             }
 
             tabuleiro.print();

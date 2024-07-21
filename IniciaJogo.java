@@ -16,6 +16,9 @@ public class IniciaJogo {
     public static void main(String[] args) {
         try {
             pManager = new GerenciaJogadoresArquivo();
+        } catch (DataParsingException e) {
+            System.out.println("Erro ao interpretar GameData, verifique o arquivo.\nDataParsingException: " + e.getMessage());
+            return;
         } catch (IOException e) {
             System.out.println("Erro ao ler jogadores.\nIOException: " + e.getMessage());
             return;
@@ -37,7 +40,7 @@ public class IniciaJogo {
                     player1 = escolherJogador();
                 }
 
-                while((!singlePlayer && player2 == null) || player2.getNome().equals(player1.getNome())){
+                while(!singlePlayer && (player2 == null || player2.getNome().equals(player1.getNome()))){
                     System.out.println("Jogador 2 inválido, escolha novamente.");
                     player2 = escolherJogador();
                 }
@@ -83,7 +86,7 @@ public class IniciaJogo {
 
         System.out.println("Escolha o jogador, ou insira 'n' para novo jogador:");
         for (int i = 0; i < jogadores.size(); i++) {
-            System.out.println((i + 1) + ". " + jogadores.get(i).getNome() + " " + jogadores.get(i).getPontos() + " pts");
+            System.out.println((i + 1) + ". " + jogadores.get(i).getNome() + ", " + jogadores.get(i).getPontos() + " pts");
         }
 
         String x = Console.nextLine();

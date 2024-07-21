@@ -1,8 +1,8 @@
 package jogodavelha.jogadores;
 
+import java.util.Map.Entry;
 import java.util.Random;
 import jogodavelha.Jogada;
-import jogodavelha.Pair;
 import jogodavelha.Tabuleiro;
 
 public class JogadorIA implements Jogador {
@@ -25,7 +25,7 @@ public class JogadorIA implements Jogador {
     }
 
     public Jogada Jogar(Tabuleiro tabuleiro, boolean player){
-        System.out.println(nome + " está fazendo a jogada (" + player);
+        System.out.println(nome + " está fazendo a jogada");
 
         // JogoDaVelha.Jogada Racional / Irracional
         if(RNG.nextInt(4) == 0){
@@ -52,8 +52,8 @@ public class JogadorIA implements Jogador {
     private Jogada jogadaAleatoria(Tabuleiro tabuleiro, boolean player) {
         int nPosRestantes = tabuleiro.getPosicoesRestantes().size();
 
-        Pair<Number, Number> pos = tabuleiro.getPosicoesRestantes().get(RNG.nextInt(nPosRestantes));
-        return new Jogada(player, pos.x.intValue(), pos.y.intValue());
+        Entry<Integer, Integer> pos = tabuleiro.getPosicoesRestantes().get(RNG.nextInt(nPosRestantes));
+        return new Jogada(player, pos.getKey(), pos.getValue());
     }
 
     public Jogada jogadaVitoriosa(Boolean jogador, Tabuleiro tabuleiro){

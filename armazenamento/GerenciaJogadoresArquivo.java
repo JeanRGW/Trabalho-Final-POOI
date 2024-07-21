@@ -19,27 +19,38 @@ public class GerenciaJogadoresArquivo implements GerenciaJogadores {
     private final static String filename = "GameData";
     private Map<String, Integer> jogadores;
 
-    public GerenciaJogadoresArquivo() throws IOException {
+    public GerenciaJogadoresArquivo() throws IOException, DataParsingException {
         carregarJogadores();
     }
 
-    private void carregarJogadores() throws IOException{
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(filename));
+    private void carregarJogadores() throws IOException, DataParsingException {
+        BufferedReader br = null;
+        Map<String, Integer> jogadores = new TreeMap<>();
+        String linhaJogador = null;
 
-            Map<String, Integer> jogadores = new TreeMap<>();
-            String linhaJogador;
-            
-            while((linhaJogador = br.readLine()) != null){
-                String infoJogador[] = linhaJogador.split(",");
-                jogadores.put(infoJogador[0],  Integer.parseInt(infoJogador[1]));
+        try {
+            br = new BufferedReader(new FileReader(filename));
+
+            try {
+                while((linhaJogador = br.readLine()) != null){
+                    String infoJogador[] = linhaJogador.split(",");
+                    jogadores.put(infoJogador[0],  Integer.parseInt(infoJogador[1]));
+                }
+            } catch (NumberFormatException e) {
+                throw new DataParsingException("Erro ao processar arquivo GameData, número inválido na linha: " + linhaJogador + "\nNumberFormatException: " + e.getMessage());
+            } catch (Exception e) {
+                throw new DataParsingException("Erro ao processar arquivo GameData, linha atual: " + linhaJogador);
             }
 
-            br.close();
             this.jogadores = jogadores;
+
         } catch (FileNotFoundException e) {
             System.out.println("Arquivo não encontrado, iniciando nova lista de jogadores.");
-            this.jogadores = new TreeMap<>();
+            this.jogadores = jogadores;
+        } finally {
+            if (br != null) {
+                br.close();
+            }
         }
     }
 

@@ -18,7 +18,6 @@ public class JogadorHumano implements Jogador {
     }
 
     public Jogada Jogar(Tabuleiro tabuleiro, boolean player){
-        System.out.println("Humano (" + player);
         System.out.println("Insira a linha: ");
         int x = (Console.nextInt() - 1);
         System.out.println("Insira a coluna: ");
