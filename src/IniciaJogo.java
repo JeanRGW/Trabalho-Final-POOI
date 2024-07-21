@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.util.List;
 
@@ -34,11 +33,13 @@ public class IniciaJogo {
 
         do {
             Console.cls();
+            System.out.println("|| Jogo da Velha ||");
             System.out.println("1.Iniciar.");
             System.out.println("2.Alternar Jogadores (" + (singlePlayer ? "1" : "2") + ")");
-            System.out.println("3.Escolher Jogadores");
+            System.out.println("3.Escolher Jogador");
             System.out.println("4.Sair");
 
+            System.out.print("\nEscolha: ");
             escolha = Console.nextInt();
 
             switch (escolha) {
