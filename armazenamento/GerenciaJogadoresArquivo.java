@@ -1,111 +1,81 @@
 package armazenamento;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import jogodavelha.jogadores.JogadorHumano;
 
 public class GerenciaJogadoresArquivo implements GerenciaJogadores {
-    private String arquivo;
+    private final static String filename = "GameData";
+    private Map<String, Integer> jogadores;
 
-    public GerenciaJogadoresArquivo() {
-        this.arquivo = "";
-        read();
+    public GerenciaJogadoresArquivo() throws IOException {
+        carregarJogadores();
     }
 
-    public void add(JogadorHumano jogador) {
-        if (arquivo.contains("{" + jogador.getNome() + ",")) {
-            remove(jogador.getNome());
-        }
+    private void carregarJogadores() throws IOException{
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filename));
 
-        arquivo += jogador.toString();
-
-        write();
-    }
-
-    public void remove(String player) {
-        int indexInicio = arquivo.indexOf("{" + player + ",");
-        int indexFim;
-        if (indexInicio != -1) {
-            indexFim = indexInicio;
-
-            while (arquivo.charAt(indexFim) != '}') {
-                indexFim++;
+            Map<String, Integer> jogadores = new TreeMap<>();
+            String linhaJogador;
+            
+            while((linhaJogador = br.readLine()) != null){
+                String infoJogador[] = linhaJogador.split(",");
+                jogadores.put(infoJogador[0],  Integer.parseInt(infoJogador[1]));
             }
 
-            indexFim++;
-            arquivo = arquivo.substring(0, indexInicio) + arquivo.substring(indexFim);
-            write();
+            br.close();
+            this.jogadores = jogadores;
+        } catch (FileNotFoundException e) {
+            System.out.println("Arquivo não encontrado, iniciando nova lista de jogadores.");
+            this.jogadores = new TreeMap<>();
         }
     }
 
-    private void write() {
-        try (FileWriter fw = new FileWriter("GameData")) {
-            fw.write(arquivo);
-        } catch (IOException e) {
-            System.err.println("I/O Exception: " + e);
-        }
-    }
-
-    private void read() {
-        try (BufferedReader fr = new BufferedReader(new FileReader("GameData"))) {
-            StringBuilder sb = new StringBuilder();
-            String s;
-            while ((s = fr.readLine()) != null) {
-                sb.append(s);
+    private void salvarJogadores() {
+        try {
+            FileWriter fw = new FileWriter(filename);
+            
+            for(Entry<String, Integer> x : jogadores.entrySet()){
+                fw.write(x.getKey() + "," + x.getValue() + "\n");
             }
-            arquivo = sb.toString();
+
+            fw.close();
         } catch (IOException e) {
-            System.err.println("I/O Exception: " + e);
+            System.err.println("Erro ao escrever arquivo.\nIOException: " + e.getMessage());
         }
     }
 
-    public List<JogadorHumano> getJogadores() {
+    public void remove(String x){
+        jogadores.remove(x);
+        
+        salvarJogadores();
+    }
+
+    public void add(JogadorHumano x){
+        jogadores.put(x.getNome(), x.getPontos());
+
+        salvarJogadores();
+    }
+
+    public List<JogadorHumano> getJogadores(){
         List<JogadorHumano> list = new ArrayList<>();
-        int i = 0;
 
-        while (i < arquivo.length()) {
-            if (arquivo.charAt(i) == '{') {
-                i++;
-                StringBuilder nome = new StringBuilder();
-                StringBuilder pontuacaoString = new StringBuilder();
-
-                while (arquivo.charAt(i) != ',') {
-                    nome.append(arquivo.charAt(i));
-                    i++;
-                }
-
-                i++;
-                while (arquivo.charAt(i) != '}') {
-                    pontuacaoString.append(arquivo.charAt(i));
-                    i++;
-                }
-
-                i++;
-                String nomeStr = nome.toString();
-                int pontuacao = Integer.parseInt(pontuacaoString.toString());
-
-                list.add(new JogadorHumano(nomeStr, pontuacao));
-            } else {
-                i++;
-            }
+        for(Entry<String, Integer> x: jogadores.entrySet()){
+            list.add(new JogadorHumano(x.getKey(), x.getValue()));
         }
 
         return list;
-    }
-
-    public void fromArrayList(List<JogadorHumano> jogadores) {
-        StringBuilder sb = new StringBuilder();
-
-        for (JogadorHumano jogador : jogadores) {
-            sb.append("{").append(jogador.getNome()).append(",").append(jogador.getPontos()).append("}");
-        }
-
-        arquivo = sb.toString();
-        write();
     }
 }

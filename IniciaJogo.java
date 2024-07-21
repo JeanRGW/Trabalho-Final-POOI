@@ -1,4 +1,5 @@
 
+import java.io.IOException;
 import java.util.List;
 
 import armazenamento.*;
@@ -10,9 +11,16 @@ import jogodavelha.jogadores.JogadorHumano;
 public class IniciaJogo {
     private static JogadorHumano player1 = null, player2 = null;
     private static boolean singlePlayer = true;
-    private static GerenciaJogadoresArquivo pManager = new GerenciaJogadoresArquivo();
+    private static GerenciaJogadoresArquivo pManager;
 
     public static void main(String[] args) {
+        try {
+            pManager = new GerenciaJogadoresArquivo();
+        } catch (IOException e) {
+            System.out.println("Erro ao ler jogadores.\nIOException: " + e.getMessage());
+            return;
+        }
+
         while(menuInicial()){};
     }
 
