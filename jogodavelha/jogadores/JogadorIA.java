@@ -19,12 +19,8 @@ public class JogadorIA implements Jogador {
 
         System.out.println(nome);
     }
-
-    public boolean isAI(){
-        return true;
-    }
-
-    public Jogada Jogar(Tabuleiro tabuleiro, boolean player){
+    
+    public Jogada jogar(Tabuleiro tabuleiro, boolean player){
         System.out.println(nome + " está fazendo a jogada");
 
         // JogoDaVelha.Jogada Racional / Irracional

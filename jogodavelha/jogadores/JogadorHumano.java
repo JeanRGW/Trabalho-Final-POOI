@@ -17,7 +17,7 @@ public class JogadorHumano implements Jogador {
         return false;
     }
 
-    public Jogada Jogar(Tabuleiro tabuleiro, boolean player){
+    public Jogada jogar(Tabuleiro tabuleiro, boolean player){
         System.out.println("Insira a linha: ");
         int x = (Console.nextInt() - 1);
         System.out.println("Insira a coluna: ");
@@ -56,10 +56,5 @@ public class JogadorHumano implements Jogador {
         }
 
         return false;
-    }
-
-    @Override
-    public String toString(){
-        return ("{" + getNome() + "," + getPontos() + "}");
     }
 }
