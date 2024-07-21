@@ -15,14 +15,34 @@ import java.util.TreeMap;
 
 import jogodavelha.jogadores.JogadorHumano;
 
+/**
+ * Implementação da interface GerenciaJogadores que utiliza um arquivo para
+ * armazenar e gerenciar os dados dos jogadores.
+ */
 public class GerenciaJogadoresArquivo implements GerenciaJogadores {
     private final static String filename = "GameData";
     private Map<String, Integer> jogadores;
 
+    /**
+     * Construtor que inicializa a lista de jogadores a partir do arquivo de dados.
+     * 
+     * @throws IOException          se ocorrer um erro de I/O durante a leitura do
+     *                              arquivo
+     * @throws DataParsingException se ocorrer um erro ao processar o conteúdo do
+     *                              arquivo
+     */
     public GerenciaJogadoresArquivo() throws IOException, DataParsingException {
         carregarJogadores();
     }
 
+    /**
+     * Carrega os dados dos jogadores a partir do arquivo.
+     * 
+     * @throws IOException          se ocorrer um erro de I/O durante a leitura do
+     *                              arquivo
+     * @throws DataParsingException se ocorrer um erro ao processar o conteúdo do
+     *                              arquivo
+     */
     private void carregarJogadores() throws IOException, DataParsingException {
         BufferedReader br = null;
         Map<String, Integer> jogadores = new TreeMap<>();
@@ -32,12 +52,13 @@ public class GerenciaJogadoresArquivo implements GerenciaJogadores {
             br = new BufferedReader(new FileReader(filename));
 
             try {
-                while((linhaJogador = br.readLine()) != null){
+                while ((linhaJogador = br.readLine()) != null) {
                     String infoJogador[] = linhaJogador.split(",");
-                    jogadores.put(infoJogador[0],  Integer.parseInt(infoJogador[1]));
+                    jogadores.put(infoJogador[0], Integer.parseInt(infoJogador[1]));
                 }
             } catch (NumberFormatException e) {
-                throw new DataParsingException("Erro ao processar arquivo GameData, número inválido na linha: " + linhaJogador + "\nNumberFormatException: " + e.getMessage());
+                throw new DataParsingException("Erro ao processar arquivo GameData, número inválido na linha: "
+                        + linhaJogador + "\nNumberFormatException: " + e.getMessage());
             } catch (Exception e) {
                 throw new DataParsingException("Erro ao processar arquivo GameData, linha atual: " + linhaJogador);
             }
@@ -57,8 +78,8 @@ public class GerenciaJogadoresArquivo implements GerenciaJogadores {
     private void salvarJogadores() {
         try {
             FileWriter fw = new FileWriter(filename);
-            
-            for(Entry<String, Integer> x : jogadores.entrySet()){
+
+            for (Entry<String, Integer> x : jogadores.entrySet()) {
                 fw.write(x.getKey() + "," + x.getValue() + "\n");
             }
 
@@ -68,22 +89,22 @@ public class GerenciaJogadoresArquivo implements GerenciaJogadores {
         }
     }
 
-    public void remove(String x){
+    public void remove(String x) {
         jogadores.remove(x);
-        
+
         salvarJogadores();
     }
 
-    public void add(JogadorHumano x){
+    public void add(JogadorHumano x) {
         jogadores.put(x.getNome(), x.getPontos());
 
         salvarJogadores();
     }
 
-    public List<JogadorHumano> getJogadores(){
+    public List<JogadorHumano> getJogadores() {
         List<JogadorHumano> list = new ArrayList<>();
 
-        for(Entry<String, Integer> x: jogadores.entrySet()){
+        for (Entry<String, Integer> x : jogadores.entrySet()) {
             list.add(new JogadorHumano(x.getKey(), x.getValue()));
         }
 
