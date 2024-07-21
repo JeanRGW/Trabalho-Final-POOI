@@ -1,24 +1,30 @@
 package jogodavelha;
 
-import entradadados.Console;
 import jogodavelha.jogadores.*;
+import jogodavelha.interfaces.InterfaceUsuario;
 
 /**
- * Representa o jogo da velha, gerenciando a interação entre os jogadores e o tabuleiro.
+ * Representa o jogo da velha, gerenciando a interação entre os jogadores e o
+ * tabuleiro.
+ * 
+ * @author JeanRGW e GuilhermeKT
+ * @version 1.0
  */
 public class Jogo {
+    InterfaceUsuario uInterface;
     Tabuleiro tabuleiro;
     Jogador jogadores[];
 
     /**
-     * Construtor para iniciar o jogo com um jogador humano e um jogador de IA.
+     * Construtor para iniciar o jogo com um jogador e uma IA.
      * 
-     * @param jogador1 o jogador humano
+     * @param jogador1
      */
-    public Jogo(Jogador jogador1){
+    public Jogo(Jogador jogador1, InterfaceUsuario uInterface) {
+        this.uInterface = uInterface;
         tabuleiro = new Tabuleiro(3);
         jogadores = new Jogador[2];
-        
+
         jogadores[0] = jogador1;
         jogadores[1] = new JogadorIA();
     }
@@ -26,49 +32,56 @@ public class Jogo {
     /**
      * Construtor para iniciar o jogo com dois jogadores especificados.
      * 
-     * @param jogador1 o primeiro jogador
-     * @param jogador2 o segundo jogador
+     * @param jogador1
+     * @param jogador2
      */
-    public Jogo(Jogador jogador1, Jogador jogador2){
+    public Jogo(Jogador jogador1, Jogador jogador2, InterfaceUsuario uInterface) {
+        this.uInterface = uInterface;
         tabuleiro = new Tabuleiro(3);
         jogadores = new Jogador[2];
-        
+
         jogadores[0] = jogador1;
         jogadores[1] = jogador2;
     }
 
-    
     /**
-     * Inicia o jogo, alternando entre os jogadores até que o jogo termine.
+     * Inicia o jogo, alternando entre os jogadores e chamando a interface até que o
+     * jogo termine.
      * 
-     * @return 1 se o jogo terminou com vitória, 2 se terminou em empate, 0 se o jogo está em andamento
+     * @return 1 ou 2 para indicar o jogador vitorioso, 0 para empate
      */
     public int iniciar() {
-        Console.cls();
-        tabuleiro.print(); 
+        uInterface.mostrarTabuleiro(tabuleiro);
 
         int turno = 0;
         while (!tabuleiro.encerrado()) {
             Jogador jogadorAtual = jogadores[turno % 2];
-            System.out.println("Vez do jogador: " + jogadorAtual.getNome());
+            uInterface.notificarJogador(jogadorAtual);
 
             try {
                 tabuleiro.add(jogadorAtual.jogar(tabuleiro, turno % 2 == 0));
             } catch (InvalidPositionException e) {
-                System.out.println("InvalidPositionException: " + e.getMessage());
+                uInterface.notificarPosicaoInvalida(jogadorAtual, e);
+
                 // Reverte o turno em caso de erro para permitir a nova tentativa
                 turno--;
                 continue;
             }
 
-            tabuleiro.print();
+            uInterface.mostrarTabuleiro(tabuleiro);
             turno++;
         }
 
+        uInterface.mostrarResultado(getGanhador());
         return tabuleiro.getGanhador();
     }
 
-    public int getGanhador(){
+    /**
+     * Retorna o ganhador no estado atual do tabuleiro.
+     * 
+     * @return 1 ou 2 para indicar o jogador vitorioso, 0 para empate
+     */
+    public int getGanhador() {
         return tabuleiro.getGanhador();
     }
 }

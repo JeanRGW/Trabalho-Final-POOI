@@ -6,6 +6,7 @@ import armazenamento.*;
 
 import entradadados.Console;
 import jogodavelha.Jogo;
+import jogodavelha.interfaces.InterfaceConsole;
 import jogodavelha.jogadores.JogadorHumano;
 
 public class IniciaJogo {
@@ -25,50 +26,44 @@ public class IniciaJogo {
             return;
         }
 
-        while (menuInicial()) {
-        }
-        ;
+        menuInicial();
     }
 
-    public static boolean menuInicial() {
-        Console.cls();
-        System.out.println("1.Iniciar.");
-        System.out.println("2.Alternar Jogadores (" + (singlePlayer ? "1" : "2") + ")");
-        System.out.println("3.Escolher Jogadores");
-        System.out.println("4.Sair");
+    public static void menuInicial() {
+        int escolha = 0;
 
-        switch (Console.nextInt()) {
-            case 1: {
-                jogar();
-            }
-                break;
+        do {
+            Console.cls();
+            System.out.println("1.Iniciar.");
+            System.out.println("2.Alternar Jogadores (" + (singlePlayer ? "1" : "2") + ")");
+            System.out.println("3.Escolher Jogadores");
+            System.out.println("4.Sair");
 
-            case 2: {
-                singlePlayer = !singlePlayer;
-            }
-                break;
+            escolha = Console.nextInt();
 
-            case 3: {
-                Console.cls();
-
-                if (singlePlayer) {
-                    player1 = escolherJogador();
-                } else {
-                    player2 = escolherJogador();
+            switch (escolha) {
+                case 1: {
+                    jogar();
                 }
+                    break;
+
+                case 2: {
+                    singlePlayer = !singlePlayer;
+                }
+                    break;
+
+                case 3: {
+                    Console.cls();
+
+                    if (singlePlayer) {
+                        player1 = escolherJogador();
+                    } else {
+                        player2 = escolherJogador();
+                    }
+                }
+                    break;
             }
-                break;
-
-            case 4:
-                return false;
-
-            default: {
-
-            }
-                break;
-        }
-
-        return true;
+        } while (escolha != 4);
     }
 
     private static JogadorHumano escolherJogador() {
@@ -123,9 +118,9 @@ public class IniciaJogo {
         Jogo jogo;
 
         if (singlePlayer) {
-            jogo = new Jogo(player1);
+            jogo = new Jogo(player1, new InterfaceConsole());
         } else {
-            jogo = new Jogo(player1, player2);
+            jogo = new Jogo(player1, player2, new InterfaceConsole());
         }
 
         jogo.iniciar();
@@ -135,8 +130,6 @@ public class IniciaJogo {
         } else {
             System.out.println("Jogador " + jogo.getGanhador() + " ganhou a partida.");
         }
-        System.out.println("Insira qualquer coisa para continuar");
-        Console.nextLine();
 
         switch (jogo.getGanhador()) {
             case 1: {
