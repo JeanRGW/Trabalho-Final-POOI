@@ -6,6 +6,9 @@ import jogodavelha.jogadores.JogadorHumano;
 /**
  * Interface para modelos de gerenciamento de jogadores.
  * Fornece métodos para adicionar, remover e obter jogadores armazenados.
+ * 
+ * @author GuilhermeKT e JeanRGW
+ * @version 1.0
  */
 public interface GerenciaJogadores {
     /**

@@ -8,11 +8,30 @@ import jogodavelha.Jogo;
 import jogodavelha.interfaces.InterfaceConsole;
 import jogodavelha.jogadores.JogadorHumano;
 
+/**
+ * Classe responsável por integrar as diversas partes do jogo, iniciando e
+ * gerenciando o jogo da velha.
+ * 
+ * Esta classe fornece a interface de usuário para iniciar o jogo, alternar
+ * entre
+ * modo de um jogador e dois jogadores, e escolher jogadores. Além disso,
+ * gerencia
+ * a pontuação e armazenamento dos jogadores.
+ * 
+ * @author GuilhermeKT e JeanRGW
+ * @version 1.0
+ */
 public class IniciaJogo {
     private static JogadorHumano player1 = null, player2 = null;
     private static boolean singlePlayer = true;
     private static GerenciaJogadoresArquivo pManager;
 
+    /**
+     * Método principal que inicia a aplicação e inicializa o gerenciamento de
+     * jogadores.
+     * 
+     * @param args argumentos da linha de comando
+     */
     public static void main(String[] args) {
         try {
             pManager = new GerenciaJogadoresArquivo();
@@ -28,6 +47,11 @@ public class IniciaJogo {
         menuInicial();
     }
 
+    /**
+     * Exibe o menu inicial do jogo, permitindo ao usuário iniciar o jogo, alternar
+     * entre
+     * modos de jogador, escolher jogadores ou sair do programa.
+     */
     public static void menuInicial() {
         int escolha = 0;
 
@@ -67,6 +91,11 @@ public class IniciaJogo {
         } while (escolha != 4);
     }
 
+    /**
+     * Permite ao usuário escolher um jogador existente ou criar um novo jogador.
+     * 
+     * @return o jogador escolhido ou criado
+     */
     private static JogadorHumano escolherJogador() {
         List<JogadorHumano> jogadores = pManager.getJogadores();
 
@@ -99,12 +128,22 @@ public class IniciaJogo {
         }
     }
 
+    /**
+     * Cria um novo jogador com o nome fornecido e inicializa a pontuação com 0.
+     * 
+     * @return o novo jogador criado
+     */
     private static JogadorHumano criarJogador() {
         System.out.print("Insira o nome: ");
 
         return new JogadorHumano(Console.nextLine(), 0);
     }
 
+    /**
+     * Inicia uma nova partida do jogo da velha com os jogadores escolhidos e o modo
+     * (um jogador ou dois jogadores). Atualiza a pontuação e salva o estado dos
+     * jogadores.
+     */
     private static void jogar() {
         while (player1 == null) {
             player1 = escolherJogador();
@@ -147,7 +186,6 @@ public class IniciaJogo {
                 }
             }
                 break;
-
         }
 
     }

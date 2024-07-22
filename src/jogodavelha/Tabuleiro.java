@@ -9,7 +9,10 @@ import java.util.Map.Entry;
  * Representa o tabuleiro do jogo da velha.
  * Gerencia as jogadas e condições de vitória.
  * 
- * @author JeanRGW e GuilhermeKT
+ * A classe é responsável por manter o estado do tabuleiro, gerenciar jogadas,
+ * verificar condições de vitória e determinar o estado atual do jogo.
+ * 
+ * @author GuilhermeKT e JeanRGW
  * @version 1.0
  */
 public class Tabuleiro {

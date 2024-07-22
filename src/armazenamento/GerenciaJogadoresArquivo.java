@@ -18,6 +18,9 @@ import jogodavelha.jogadores.JogadorHumano;
 /**
  * Implementação da interface GerenciaJogadores que utiliza um arquivo para
  * armazenar e gerenciar os dados dos jogadores.
+ * 
+ * @author GuilhermeKT e JeanRGW
+ * @version 1.0
  */
 public class GerenciaJogadoresArquivo implements GerenciaJogadores {
     private final static String filename = "GameData";
@@ -75,6 +78,9 @@ public class GerenciaJogadoresArquivo implements GerenciaJogadores {
         }
     }
 
+    /**
+     * Salva os dados dos jogadores no arquivo.
+     */
     private void salvarJogadores() {
         try {
             FileWriter fw = new FileWriter(filename);
@@ -89,18 +95,35 @@ public class GerenciaJogadoresArquivo implements GerenciaJogadores {
         }
     }
 
+    /**
+     * Remove um jogador do armazenamento pelo nome.
+     * 
+     * @param x o nome do jogador a ser removido
+     */
     public void remove(String x) {
         jogadores.remove(x);
 
         salvarJogadores();
     }
 
+    /**
+     * Adiciona um jogador ao armazenamento ou atualiza as informações se o jogador
+     * já existir.
+     * 
+     * @param x o jogador humano a ser adicionado ou atualizado
+     */
     public void add(JogadorHumano x) {
         jogadores.put(x.getNome(), x.getPontos());
 
         salvarJogadores();
     }
 
+    /**
+     * Retorna a lista de todos os jogadores armazenados.
+     * 
+     * @return uma lista de objetos JogadorHumano representando todos os jogadores
+     *         armazenados
+     */
     public List<JogadorHumano> getJogadores() {
         List<JogadorHumano> list = new ArrayList<>();
 
