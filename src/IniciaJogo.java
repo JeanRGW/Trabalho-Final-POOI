@@ -45,6 +45,8 @@ public class IniciaJogo {
         }
 
         menuInicial();
+
+        Console.close();
     }
 
     /**
